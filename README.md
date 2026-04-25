@@ -1,11 +1,8 @@
-[![Open in Codespaces](https://classroom.github.com/assets/launch-codespace-2972f46106e565e64193e422d61a12cf1da4916b45550586e14ef0a7c637dd04.svg)](https://classroom.github.com/open-in-codespaces?assignment_repo_id=23704621)
-# CSSE6400 Week 8 Practical
+	1.	Added structured logging and correlation IDs to CloudWatch.
+	2.	Deployed the application to AWS and ran the provided k6 scenarios.
+	3.	Verified that POST and DELETE requests can succeed through logs and manual testing.
+	4.	Observed repeated timeout failures on GET /api/v1/todos during load testing.
+	5.	Concluded that the bottleneck is primarily read-side concurrency handling rather than simple API correctness.
 
-Load testing TaskOverflow, identify bottlenecks and resolve performance bottlenecks.
 
-Please see the [instructions](https://csse6400.uqcloud.net/practicals/week08) for more details.
-
-Update this README file with appropriate information about your project,
-including how to run it.
-
-There are [resources](https://www.makeareadme.com) available to help you write a good README file.
+    Load testing results show that the main bottleneck is not average request latency, but the application’s ability to handle large numbers of concurrent GET /api/v1/todos requests. Structured logs with correlation IDs confirmed that POST and DELETE requests can complete successfully, while many GET requests fail with timeout errors under load. Since successful requests still have relatively low latency, the main issue appears to be request throughput under concurrency rather than slow execution of individual successful requests.
